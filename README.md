@@ -1,4 +1,5 @@
 # StudentHUB
+[![Test and Deploy](https://github.com/MohitAswani/StudentHubServer/actions/workflows/test_and_deploy.yml/badge.svg)](https://github.com/MohitAswani/StudentHubServer/actions/workflows/test_and_deploy.yml)
 
 Install the dependencies using 
 ```
@@ -14,4 +15,4 @@ PROJECT URL:
 https://github.com/MohitAswani/StudentHUB
 ```
 
-[![Test and Deploy](https://github.com/MohitAswani/StudentHubServer/actions/workflows/test_and_deploy.yml/badge.svg)](https://github.com/MohitAswani/StudentHubServer/actions/workflows/test_and_deploy.yml)
+
