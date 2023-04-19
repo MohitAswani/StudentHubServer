@@ -1,47 +1,29 @@
 require("dotenv").config();
 const { expect } = require("chai");
 const sinon = require("sinon");
+const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 
 const User = require("../models/User");
 const AuthController = require("../controllers/auth");
 
-describe("Auth Controller - DB Test", function () {
-  it("should throw an error with code 500 if accessing the database fails", function (done) {
-    sinon.stub(User, "findOne");
-    User.findOne.throws();
-
-    const req = {
-      body: {
-        username: "test@test.com",
-        password: "tester",
-      },
-    };
-
-    AuthController.postLoginIn(req, {}, () => {}).then((result) => {
-      expect(result).to.be.an("error");
-      expect(result).to.have.property("statusCode", 500);
-      done();
-    });
-  });
-});
+const TEST_USER = {
+  username: "test123",
+  email: "test@test.com",
+  password: "Password@1234",
+  profilePic: "test",
+};
 
 describe("Auth Controller", function () {
   before(function (done) {
     mongoose
       .connect(process.env.TEST_DB_URL)
       .then((result) => {
-        const user = new User({
-          username: "test123",
-          email: "test@test.com",
-          password: "Password@1234",
-          profilePic: "test",
-        });
-
+        const user = new User(TEST_USER);
         return user.save();
       })
-      .then(() => {
-        console.log("User created");
+      .then((user) => {
+        TEST_USER._id = user._id;
         done();
       });
   });
@@ -58,10 +40,84 @@ describe("Auth Controller", function () {
       },
     };
 
-    AuthController.postLoginIn(req, {}, () => {}).then((result) => {
-      console.log("sdsd",result);
+    const res = {
+      status: function () {
+        return this;
+      },
+      json: function () {},
+    };
+
+    AuthController.postLoginIn(req, res, () => {}).then((result) => {
       expect(result).to.be.an("error");
       expect(result).to.have.property("statusCode", 401);
+      expect(result).to.have.property(
+        "message",
+        "A user with this username could not be found."
+      );
+      done();
+    });
+  });
+
+  it("should throw a 401 error if password is incorrect", function (done) {
+    const req = {
+      body: {
+        username: TEST_USER.username,
+        password: "tester",
+      },
+    };
+
+    const res = {
+      status: function () {
+        return this;
+      },
+      json: function () {},
+    };
+
+    AuthController.postLoginIn(req, res, () => {}).then((result) => {
+      expect(result).to.be.an("error");
+      expect(result).to.have.property("statusCode", 401);
+      expect(result).to.have.property("message", "Wrong password!");
+      done();
+    });
+  });
+
+  it("should return a valid user status for an existing user", function (done) {
+    sinon.stub(bcrypt, "compare");
+
+    bcrypt.compare= ({var1,var2}) => {
+      return var1===var2;
+    };
+
+    const req = {
+      body: {
+        username: TEST_USER.username,
+        password: TEST_USER.password,
+      },
+    };
+
+    const res = {
+      statusCode: 500,
+      userData: {},
+      status: function (code) {
+        this.statusCode = code;
+        return this;
+      },
+      json: function (data) {
+        this.userData = data;
+      },
+    };
+
+    AuthController.postLoginIn(req, res, () => {}).then(() => {
+      console.log(res.userData);
+      expect(res.statusCode).to.be.equal(200);
+      expect(res.userData).to.have.property("message", "User logged in!");
+      expect(res.userData).to.have.property("data");
+      expect(res.userData.data.userId).to.be.equal(TEST_USER._id.toString());
+      expect(res.userData.data.username).to.be.equal(TEST_USER.username);
+      expect(res.userData.data.email).to.be.equal(TEST_USER.email);
+      expect(res.userData.data.profilePic).to.be.equal(TEST_USER.profilePic);
+      
+      bcrypt.compare.restore();
       done();
     });
   });
