@@ -13,7 +13,7 @@ const TEST_USER = {
   password: "Password@1234",
   profilePic: "test",
 };
-d
+
 describe("Auth Controller", function () {
   before(function (done) {
     mongoose
