@@ -31,7 +31,7 @@ jobs:
     - name: Create .env file
       uses: SpicyPizza/create-envfile@v1
       with:
-        envkey_TEST_DB_URL: ${{secrets.TEST_DB_URL}}
+        TEST_DB_URL: ${{secrets.TEST_DB_URL}}
       
     - run: npm ci
     - run: npm run build --if-present
