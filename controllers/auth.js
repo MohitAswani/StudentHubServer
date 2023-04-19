@@ -204,8 +204,6 @@ exports.postLoginIn = async (req, res, next) => {
       throw error;
     }
 
-    console.log(user);
-
     const token = jwt.sign(
       {
         username: user.username,
@@ -214,6 +212,8 @@ exports.postLoginIn = async (req, res, next) => {
       process.env.JWT_SECRET_KEY,
       { expiresIn: "24h" }
     );
+
+    console.log(user);
 
     return res.status(200).json({
       message: "User logged in!",
