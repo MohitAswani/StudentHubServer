@@ -13,11 +13,11 @@ const TEST_USER = {
   password: "Password@1234",
   profilePic: "test",
 };
-
+d
 describe("Auth Controller", function () {
   before(function (done) {
     mongoose
-      .connect(envkey_TEST_DB_URL)
+      .connect(process.env.envkey_TEST_DB_URL)
       .then((result) => {
         const user = new User(TEST_USER);
         return user.save();
