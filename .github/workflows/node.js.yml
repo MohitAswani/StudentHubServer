@@ -34,5 +34,5 @@ jobs:
         echo TEST_DB_URL=$TEST_DB_URL >> .env
         npm test
       env:
-        TEST_DB_URL: ${{ TEST_DB_URL }}
+        TEST_DB_URL: ${{ secrets.TEST_DB_URL }}
      
