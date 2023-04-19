@@ -31,7 +31,7 @@ jobs:
         TEST_DB_URL: ${{ TEST_DB_URL }}
     - run: npm ci
     - run: |
-      touch .env
-      echo TEST_DB_URL=$TEST_DB_URL >> .env
-      npm test
+        touch .env
+        echo TEST_DB_URL=$TEST_DB_URL >> .env
+        npm test
      
