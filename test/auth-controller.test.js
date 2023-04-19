@@ -105,6 +105,7 @@ describe("Auth Controller", function () {
     };
 
     AuthController.postLoginIn(req, res, () => {}).then(() => {
+      console.log(res);
       expect(res.statusCode).to.be.equal(200);
       expect(res.userData).to.have.property("message", "User logged in!");
       expect(res.userData).to.have.property("data");
