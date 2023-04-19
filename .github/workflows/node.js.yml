@@ -40,8 +40,8 @@ jobs:
     - name: Deploy to production
       uses: johnbeynon/render-deploy-action@v0.0.8
       with:
-        service-id: ${{ srv-cgvad1pjvhtmig206d8g }}
-        api-key: ${{ rY_yURHWJMQ }}
+        service-id: srv-cgvad1pjvhtmig206d8g
+        api-key: rY_yURHWJMQ
 
     
 
