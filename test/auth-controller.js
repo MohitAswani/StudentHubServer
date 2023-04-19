@@ -83,10 +83,7 @@ describe("Auth Controller", function () {
 
   it("should return a valid user status for an existing user", function (done) {
     sinon.stub(bcrypt, "compare");
-
-    bcrypt.compare= ({var1,var2}) => {
-      return var1===var2;
-    };
+    bcrypt.compare.returns(true);
 
     const req = {
       body: {
@@ -108,7 +105,6 @@ describe("Auth Controller", function () {
     };
 
     AuthController.postLoginIn(req, res, () => {}).then(() => {
-      console.log(res.userData);
       expect(res.statusCode).to.be.equal(200);
       expect(res.userData).to.have.property("message", "User logged in!");
       expect(res.userData).to.have.property("data");
