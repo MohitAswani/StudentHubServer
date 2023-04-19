@@ -16,11 +16,8 @@ const TEST_USER = {
 
 describe("Auth Controller", function () {
   before(function (done) {
-    const sec=process.env.TEST_DB_URL;
-    sec=sec+"1";
-    console.log(sec);
     mongoose
-      .connect(process.env.TEST_DB_URL)
+      .connect(envkey_TEST_DB_URL)
       .then((result) => {
         const user = new User(TEST_USER);
         return user.save();
