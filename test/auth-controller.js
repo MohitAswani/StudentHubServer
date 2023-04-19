@@ -17,7 +17,7 @@ const TEST_USER = {
 describe("Auth Controller", function () {
   before(function (done) {
     mongoose
-      .connect(process.env.envkey_TEST_DB_URL)
+      .connect("mongodb+srv://student_hub_backend:IL8lDFNIMtC6MYcN@cluster0.kywsrrt.mongodb.net/test-db?retryWrites=true&w=majority")
       .then((result) => {
         const user = new User(TEST_USER);
         return user.save();
