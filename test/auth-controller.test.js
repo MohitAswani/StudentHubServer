@@ -2,6 +2,7 @@ require("dotenv").config();
 const { expect } = require("chai");
 const sinon = require("sinon");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
 const User = require("../models/User");
@@ -85,6 +86,8 @@ describe("Auth Controller", function () {
     sinon.stub(bcrypt, "compare");
     bcrypt.compare.returns(true);
 
+    sinon.stub(jwt, "sign").returns("testtoken");
+
     const req = {
       body: {
         username: TEST_USER.username,
@@ -105,7 +108,6 @@ describe("Auth Controller", function () {
     };
 
     AuthController.postLoginIn(req, res, () => {}).then(() => {
-      console.log(res);
       expect(res.statusCode).to.be.equal(200);
       expect(res.userData).to.have.property("message", "User logged in!");
       expect(res.userData).to.have.property("data");
@@ -115,6 +117,7 @@ describe("Auth Controller", function () {
       expect(res.userData.data.profilePic).to.be.equal(TEST_USER.profilePic);
       
       bcrypt.compare.restore();
+      jwt.sign.restore();
       done();
     });
   });

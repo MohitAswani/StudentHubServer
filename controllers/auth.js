@@ -213,8 +213,6 @@ exports.postLoginIn = async (req, res, next) => {
       { expiresIn: "24h" }
     );
 
-    console.log(user);
-
     return res.status(200).json({
       message: "User logged in!",
       data: {
