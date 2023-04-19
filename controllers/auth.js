@@ -188,7 +188,11 @@ exports.postLoginIn = async (req, res, next) => {
 
     let { username, password } = req.body;
 
+    console.log("before find");
+
     const user = await User.findOne({ username: username });
+
+    console.log("after find");
 
     if (!user) {
       const error = new Error("A user with this username could not be found.");
@@ -203,7 +207,7 @@ exports.postLoginIn = async (req, res, next) => {
       error.statusCode = 401;
       throw error;
     }
-    
+
     const token = jwt.sign(
       {
         username: user.username,
