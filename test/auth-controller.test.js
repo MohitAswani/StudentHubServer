@@ -18,7 +18,7 @@ const TEST_USER = {
 describe("Auth Controller", function () {
   before(function (done) {
     mongoose
-      .connect("mongodb+srv://student_hub_backend:IL8lDFNIMtC6MYcN@cluster0.kywsrrt.mongodb.net/test-db?retryWrites=true&w=majority")
+      .connect(process.env.TEST_DB_URL)
       .then((result) => {
         const user = new User(TEST_USER);
         return user.save();
@@ -115,7 +115,7 @@ describe("Auth Controller", function () {
       expect(res.userData.data.username).to.be.equal(TEST_USER.username);
       expect(res.userData.data.email).to.be.equal(TEST_USER.email);
       expect(res.userData.data.profilePic).to.be.equal(TEST_USER.profilePic);
-      
+
       bcrypt.compare.restore();
       jwt.sign.restore();
       done();
