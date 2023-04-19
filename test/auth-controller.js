@@ -17,7 +17,7 @@ const TEST_USER = {
 describe("Auth Controller", function () {
   before(function (done) {
     mongoose
-      .connect(TEST_DB_URL)
+      .connect(process.env.TEST_DB_URL)
       .then((result) => {
         const user = new User(TEST_USER);
         return user.save();

@@ -21,12 +21,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+      env:
+        TEST_DB_URL: ${{ TEST_DB_URL }}
     - run: npm ci
-    - run: npm test
-      env: 
-        TEST_DB_URL: ${{ secrets.TEST_DB_URL }}
+    - run: |
+      touch .env
+      echo TEST_DB_URL=$TEST_DB_URL >> .env
+      npm test
+     
