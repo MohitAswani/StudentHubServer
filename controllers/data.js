@@ -1,12 +1,9 @@
 const jwt = require("jsonwebtoken");
-const Redis = require("ioredis");
 
 const User = require("../models/User");
 const Post = require("../models/Post");
 const Notification = require("../models/Notification");
 const { validationResult } = require("express-validator");
-
-const redisClient = new Redis(process.env.REDIS_URL);
 
 exports.putCreateIssue = async (req, res, next) => {
   try {
