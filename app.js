@@ -116,6 +116,7 @@ app.use(
 
 mongoose
   .connect(process.env.DB_URL)
+  .set("strictQuery", false)
   .then((result) => {
     console.log("DB Connected");
     const server = app.listen(process.env.PORT);
@@ -123,3 +124,5 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+mongoose.set("strictQuery", false);

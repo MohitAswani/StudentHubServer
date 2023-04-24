@@ -20,6 +20,7 @@
 //   before(function (done) {
 //     mongoose
 //       .connect(process.env.TEST_DB_URL)
+//       .set("strictQuery", false)
 //       .then((result) => {
 //         const user = new User(TEST_USER);
 //         return user.save();
