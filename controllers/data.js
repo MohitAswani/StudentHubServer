@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+
 const User = require("../models/User");
 const Post = require("../models/Post");
 const Notification = require("../models/Notification");
@@ -96,6 +97,7 @@ exports.getIssues = async (req, res, next) => {
         .populate({
           path: "postLikedBy",
         })
+        .lean()
         .exec();
 
       fetchedPosts.push(...topUserPosts);
@@ -157,6 +159,7 @@ exports.getSuggestedUsers = async (req, res, next) => {
       ],
     })
       .limit(3)
+      .lean()
       .exec();
 
     // console.log(suggestedUsers);
@@ -188,6 +191,7 @@ exports.getTrendingIssues = async (req, res, next) => {
       .populate({
         path: "postedBy",
       })
+      .lean()
       .exec();
 
     if (!trendingIssues) {
@@ -222,7 +226,9 @@ exports.getCategoryIssues = async (req, res, next) => {
         options: {
           limit: 2,
         },
-      });
+      })
+      .lean()
+      .exec();
 
     if (!categoryIssues) {
       const error = new Error("Error fetching category issues");
@@ -248,11 +254,13 @@ exports.getNotifications = async (req, res, next) => {
     let userId = req.userId;
 
     const user = await User.findOne({ _id: userId })
+      .select("notifications")
       .populate({
         path: "notifications",
         populate: { path: "notificationAboutUser" },
       })
       .sort({ "notifications.notificationDate": 1 })
+      .lean()
       .exec();
 
     if (!user) {
@@ -307,6 +315,7 @@ exports.getBookmarks = async (req, res, next) => {
     let userId = req.userId;
 
     const user = await User.findOne({ _id: userId })
+      .select("booksmarks")
       .populate({
         path: "booksmarks",
         populate: { path: "postedBy" },
@@ -320,6 +329,7 @@ exports.getBookmarks = async (req, res, next) => {
           },
         },
       })
+      .lean()
       .exec();
 
     if (!user) {
@@ -339,7 +349,10 @@ exports.getBookmarksId = async (req, res, next) => {
   try {
     let userId = req.userId;
 
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findOne({ _id: userId })
+      .select("booksmarks")
+      .lean()
+      .exec();
 
     if (!user) {
       const error = new Error("Error fetching bookmarks");
@@ -381,7 +394,9 @@ exports.postSettings = async (req, res, next) => {
             profilePic: imageUrl,
           },
         }
-      );
+      )
+      .lean()
+      .exec();
 
       return res.status(200).json({
         message: "Settings updated!",
@@ -439,6 +454,7 @@ exports.getUserProfile = async (req, res, next) => {
           },
         },
       })
+      .lean()
       .exec();
 
     if (!user) {

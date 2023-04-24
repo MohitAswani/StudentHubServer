@@ -40,7 +40,14 @@ exports.fileStorage = multerS3({
         },
         transform: (req, file, cb) => {
             // compress the image without resizing using sharp
-            cb(null, sharp().resize(500, 500).jpeg({ quality: 50 }));
+            sharp().resize(500, 500).jpeg({ quality: 20 }).toBuffer((err, data, info) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    cb(null, data);
+                }
+            });
         }
     }]
 });

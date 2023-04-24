@@ -5,11 +5,13 @@ const { model, Schema } = require('mongoose')
 const Post = new Schema({
     postDate: {
         type: Date,
-        required: true
+        required: true,
+        index: true // add an index on this field
     },
     postCategory:{
         type:String,
-        required:true
+        required:true,
+        index: true // add an index on this field
     },
     postDescription: {
         type: String,
@@ -19,7 +21,8 @@ const Post = new Schema({
     },
     postedBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'User'
+        ref:'User',
+        index: true // add an index on this field
     },
     postLikedBy: [{
         type: mongoose.Schema.Types.ObjectId,

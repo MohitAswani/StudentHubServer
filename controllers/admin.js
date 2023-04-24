@@ -20,7 +20,13 @@ exports.postLogin = async (req, res, next) => {
 
     let { adminUsername, adminPassword } = req.body;
 
-    const user = await User.findOne({ username: adminUsername });
+    const user = await User.findOne({ username: adminUsername }).select({
+      password: 1,
+      isAdmin: 1,
+      username: 1,
+      email: 1,
+      profilePic: 1,
+    });
 
     if (!user) {
       const error = new Error("User not found");

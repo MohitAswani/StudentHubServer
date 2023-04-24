@@ -5,16 +5,19 @@ const { model, Schema } = require('mongoose')
 const Notification = new Schema({
     notificationDate: {
         type: Date,
-        required: true
+        required: true,
+        index: true // add an index on this field
     },
     notificationType: {
         type:String,
-        required:true
+        required:true,
+        index: true // add an index on this field
     },
     notificationAboutUser: {
         type:mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: true,
+        index: true // add an index on this field
     },
 });
 
