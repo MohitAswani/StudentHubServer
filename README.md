@@ -1,6 +1,8 @@
 # StudentHUB
 [![Test and Deploy](https://github.com/MohitAswani/StudentHubServer/actions/workflows/test_and_deploy.yml/badge.svg)](https://github.com/MohitAswani/StudentHubServer/actions/workflows/test_and_deploy.yml)
 
+Live Demo : https://student-hub-server-wbd-69453.onrender.com
+
 Install the dependencies using 
 ```
 npm ci
