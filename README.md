@@ -15,4 +15,9 @@ PROJECT URL:
 https://github.com/MohitAswani/StudentHUB
 ```
 
+Deployed Project URl:
+```
+https://student-hub-wbd.netlify.app/login
+```
+
 
