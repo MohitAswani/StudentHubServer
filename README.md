@@ -14,7 +14,8 @@ then run ```npm start``` command.
 PROJECT URL:
 
 ```
-https://github.com/MohitAswani/StudentHUB
+https://github.com/MohitAswani/StudentHubServer
+https://github.com/MohitAswani/StudentHubClient
 ```
 
 Deployed Project URl:
