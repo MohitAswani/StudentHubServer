@@ -127,8 +127,10 @@ exports.getIssues = async (req, res, next) => {
 exports.getSuggestedUsers = async (req, res, next) => {
   try {
     let userId = req.userId;
+    // console.log(userId);
 
     const user = await User.findById(userId);
+    // console.log(user);
 
     if (!user) {
       const error = new Error("Authorization failed!");
@@ -156,6 +158,8 @@ exports.getSuggestedUsers = async (req, res, next) => {
     })
       .limit(3)
       .exec();
+
+    // console.log(suggestedUsers);
 
     if (!suggestedUsers) {
       const error = new Error("Error fetching suggested users");
