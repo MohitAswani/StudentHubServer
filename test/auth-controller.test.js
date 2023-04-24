@@ -122,6 +122,35 @@ describe("Auth Controller", function () {
     });
   });
 
+  // postSendOTP
+  
+  it("should throw a 401 error if OTP sent", function (done) { 
+    const req = {
+      body: {
+        email: TEST_USER.email,
+      },
+    };
+
+    const res = {
+      statusCode: 500,
+      userData: {},
+      status: function (code) {
+        this.statusCode = code;
+        return this;
+      },
+      json: function (data) {
+        this.userData = data;
+      },
+    };
+
+    AuthController.postSendOTP(req, res, () => {}).then((result) => {
+      expect(res.statusCode).to.be.equal(200);
+      expect(res.userData).to.have.property("message", "OTP Sent");
+      done();
+    });
+  });
+
+
   after(function (done) {
     User.deleteMany({})
       .then(() => {
