@@ -114,6 +114,9 @@ app.use(
   swaggerUi.setup(specs, { explorer: true })
 );
 
+
+mongoose.set("strictQuery", false);
+
 mongoose
   .connect(process.env.DB_URL)
   .set("strictQuery", false)
@@ -124,5 +127,3 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-mongoose.set("strictQuery", false);
