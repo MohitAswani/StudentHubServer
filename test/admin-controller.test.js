@@ -157,14 +157,12 @@ describe("Admin Controller", function () {
 //   confirmPassword: "testpassword",
 // };
 
-<<<<<<< HEAD
 // describe("Authentication API Tests", () => {
 //   beforeAll(async () => {
 //     // connect to the test database before running tests
 //     await mongoose.connect(process.env.TEST_MONGODB_URI, {
 //       useNewUrlParser: true,
 //       useUnifiedTopology: true,
-=======
 // describe("Admin Controller", function () {
 //   before(function (done) {
 //     mongoose
@@ -207,7 +205,6 @@ describe("Admin Controller", function () {
 //         "A user with this username could not be found."
 //       );
 //       done();
->>>>>>> a68c7bf2816bcb4ee91f54c07a9a478b80251263
 //     });
 //   });
 
