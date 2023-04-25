@@ -17,6 +17,7 @@ const TEST_USER = {
 
 describe("Data Controller", function () {
     before(function (done) {
+        mongoose.set("strictQuery", false);
         mongoose
         .connect(process.env.TEST_DB_URL)
         .then((result) => {

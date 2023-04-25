@@ -114,8 +114,12 @@ app.use(
   swaggerUi.setup(specs, { explorer: true })
 );
 
+
+mongoose.set("strictQuery", false);
+
 mongoose
   .connect(process.env.DB_URL)
+  .set("strictQuery", false)
   .then((result) => {
     console.log("DB Connected");
     const server = app.listen(process.env.PORT);

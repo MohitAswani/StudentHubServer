@@ -157,12 +157,57 @@ describe("Admin Controller", function () {
 //   confirmPassword: "testpassword",
 // };
 
+<<<<<<< HEAD
 // describe("Authentication API Tests", () => {
 //   beforeAll(async () => {
 //     // connect to the test database before running tests
 //     await mongoose.connect(process.env.TEST_MONGODB_URI, {
 //       useNewUrlParser: true,
 //       useUnifiedTopology: true,
+=======
+// describe("Admin Controller", function () {
+//   before(function (done) {
+//     mongoose
+//       .connect(process.env.TEST_DB_URL)
+//       .set("strictQuery", false)
+//       .then((result) => {
+//         const user = new User(TEST_USER);
+//         return user.save();
+//       })
+//       .then((user) => {
+//         TEST_USER._id = user._id;
+//         done();
+//       });
+//   });
+
+//   beforeEach(function (done) {
+//     done();
+//   });
+
+//   it("should throw a 401 error if username is not found", function (done) {
+//     const req = {
+//       body: {
+//         username: "test",
+//         password: "tester",
+//       },
+//     };
+
+//     const res = {
+//       status: function () {
+//         return this;
+//       },
+//       json: function () {},
+//     };
+
+//     AdminController.postLogin(req, res, () => {}).then((result) => {
+//       expect(result).to.be.an("error");
+//       expect(result).to.have.property("statusCode", 401);
+//       expect(result).to.have.property(
+//         "message",
+//         "A user with this username could not be found."
+//       );
+//       done();
+>>>>>>> a68c7bf2816bcb4ee91f54c07a9a478b80251263
 //     });
 //   });
 
