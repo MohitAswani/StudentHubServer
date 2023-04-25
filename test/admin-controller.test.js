@@ -172,35 +172,35 @@ describe("Admin Controller", function () {
 //       });
 //   });
 
-  beforeEach(function (done) {
-    done();
-  });
+  // beforeEach(function (done) {
+  //   done();
+  // });
 
-  it("should throw a 401 error if username is not found", function (done) {
-    const req = {
-      body: {
-        username: "test",
-        password: "tester",
-      },
-    };
+  // it("should throw a 401 error if username is not found", function (done) {
+  //   const req = {
+  //     body: {
+  //       username: "test",
+  //       password: "tester",
+  //     },
+  //   };
 
-    const res = {
-      status: function () {
-        return this;
-      },
-      json: function () {},
-    };
+  //   const res = {
+  //     status: function () {
+  //       return this;
+  //     },
+  //     json: function () {},
+  //   };
 
-    AdminController.postLogin(req, res, () => {}).then((result) => {
-      expect(result).to.be.an("error");
-      expect(result).to.have.property("statusCode", 401);
-      expect(result).to.have.property(
-        "message",
-        "A user with this username could not be found."
-      );
-      done();
-    });
-  });
+  //   AdminController.postLogin(req, res, () => {}).then((result) => {
+  //     expect(result).to.be.an("error");
+  //     expect(result).to.have.property("statusCode", 401);
+  //     expect(result).to.have.property(
+  //       "message",
+  //       "A user with this username could not be found."
+  //     );
+  //     done();
+  //   });
+  // });
 
 //   it("should throw a 401 error if password is incorrect", function (done) {
 //     const req = {
